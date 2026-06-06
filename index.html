@@ -7,7 +7,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--rose:#c96b8a;--rlight:#f5e0e8;--rdark:#8a3a56;--gold:#c9a05a;--blk:#1a1a1a;--gray:#f7f4f2;--gray2:#ede9e6;--txt:#2d2d2d;--muted:#8a8078;--rad:12px}
+:root{--rose:#c96b8a;--rlight:#f5e0e8;--rdark:#8a3a56;--gold:#c9a05a;--blk:#1a1a1a;--gray:#f7f4f2;--gray2:#ede9e6;--txt:#2d2d2d;--muted:#8a8078;--rad:12px;--pkg:#6b8ac9;--pkglight:#e0e8f5}
 body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);min-height:100vh}
 .app{max-width:700px;margin:0 auto;padding:.8rem}
 .hdr{text-align:center;padding:1rem;background:#fff;border-radius:var(--rad);margin-bottom:.8rem;border:.5px solid #e8e2de}
@@ -23,10 +23,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);mi
 .offline .sync-dot{background:#f44336}
 .loading .sync-dot{background:#ffc107;animation:pulse .8s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.mtabs{display:flex;gap:.5rem;justify-content:center;margin-bottom:.8rem;flex-wrap:wrap}
-.mtab{padding:.5rem 1.5rem;border-radius:50px;border:1.5px solid var(--rose);cursor:pointer;font-size:.88rem;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s;background:transparent;color:var(--rose)}
+.mtabs{display:flex;gap:.4rem;justify-content:center;margin-bottom:.8rem;flex-wrap:wrap}
+.mtab{padding:.45rem 1.1rem;border-radius:50px;border:1.5px solid var(--rose);cursor:pointer;font-size:.82rem;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s;background:transparent;color:var(--rose)}
 .mtab.active{background:var(--rose);color:#fff}
 .mtab:hover:not(.active){background:var(--rlight)}
+.mtab.pt{border-color:var(--pkg);color:var(--pkg)}
+.mtab.pt.active{background:var(--pkg);color:#fff}
+.mtab.pt:hover:not(.active){background:var(--pkglight)}
 .mtab.gt{border-color:var(--gold);color:var(--gold)}
 .mtab.gt.active{background:var(--gold);color:#fff}
 .mtab.gt:hover:not(.active){background:#fdf0d8}
@@ -47,7 +50,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);mi
 .leg{display:flex;gap:1rem;margin-bottom:.6rem;font-size:.78rem;align-items:center;flex-wrap:wrap}
 .leg span{display:flex;align-items:center;gap:.3rem}
 .ldot{width:11px;height:11px;border-radius:2px;display:inline-block}
-.lc{background:var(--rose)}.lp{background:var(--gold)}.ln{background:#bbb}
+.lc{background:var(--rose)}.lp{background:var(--gold)}.ln{background:#bbb}.lpkg{background:var(--pkg)}
 .wgrid{display:grid;grid-template-columns:52px repeat(6,1fr);background:#fff;border-radius:var(--rad);overflow:hidden;border:.5px solid #e0d8d4}
 .ch{padding:.45rem .25rem;text-align:center;background:#fff;border-bottom:1px solid var(--gray2);font-size:.7rem;color:var(--muted)}
 .ch .dn{font-weight:600;font-size:.72rem;color:var(--blk)}
@@ -57,7 +60,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);mi
 .slot{border-top:.5px solid #f0ebe8;border-left:.5px solid #f0ebe8;min-height:34px;position:relative;cursor:pointer;transition:background .12s}
 .slot:hover{background:var(--rlight)}
 .appt{position:absolute;inset:2px;background:var(--rose);border-radius:5px;padding:2px 4px;font-size:.65rem;color:#fff;overflow:hidden;cursor:pointer;z-index:2;display:flex;flex-direction:column;justify-content:center;line-height:1.3}
-.appt.pend{background:var(--gold)}.appt.canc{background:#bbb;text-decoration:line-through}
+.appt.pend{background:var(--gold)}.appt.canc{background:#bbb;text-decoration:line-through}.appt.pkg{background:var(--pkg)}
 .appt .an{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .appt .as{font-size:.58rem;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mgrid{display:grid;grid-template-columns:repeat(7,1fr);background:#fff;border-radius:var(--rad);overflow:hidden;border:.5px solid #e0d8d4}
@@ -69,18 +72,39 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);mi
 .mday:hover:not(.empty){background:var(--rlight)}
 .dnum{font-size:.75rem;font-weight:500;color:var(--blk);margin-bottom:.15rem;width:22px;height:22px;display:flex;align-items:center;justify-content:center}
 .dappt{background:var(--rose);border-radius:3px;padding:1px 4px;font-size:.6rem;color:#fff;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;position:relative;z-index:2}
-.dappt.pend{background:var(--gold)}.dappt.canc{background:#bbb}
+.dappt.pend{background:var(--gold)}.dappt.canc{background:#bbb}.dappt.pkg{background:var(--pkg)}
 .dmore{font-size:.58rem;color:var(--muted);margin-top:1px;position:relative;z-index:2}
+/* PACOTES */
+.pkg-wrap{background:#fff;border-radius:var(--rad);border:.5px solid #e0d8d4;margin-bottom:.8rem;overflow:hidden}
+.pkg-hdr{background:var(--pkglight);padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between}
+.pkg-hdr h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--pkg)}
+.pkg-cards{padding:.8rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.6rem}
+.pkg-card{border:.5px solid #c0c8e0;border-radius:var(--rad);padding:.8rem;background:var(--pkglight)}
+.pc-name{font-weight:500;font-size:.88rem;color:var(--pkg);margin-bottom:.25rem}
+.pc-info{font-size:.76rem;color:var(--muted);margin-bottom:.35rem}
+.pkg-progress{height:8px;background:#c0c8e0;border-radius:4px;overflow:hidden;margin:.35rem 0}
+.pkg-bar{height:100%;border-radius:4px;background:var(--pkg);transition:width .4s}
+.pkg-bar.done{background:#5a9e6f}
+.pkg-stats{display:flex;justify-content:space-between;font-size:.74rem;color:var(--muted)}
+.pkg-total{font-size:.74rem;color:var(--muted);margin-top:.2rem}
+.pkg-sess-list{margin-top:.4rem;max-height:90px;overflow-y:auto}
+.pkg-sess{font-size:.7rem;color:var(--muted);padding:.15rem 0;border-bottom:.5px solid #d0d8e8;display:flex;justify-content:space-between}
+.pkg-actions{display:flex;gap:.4rem;margin-top:.5rem;flex-wrap:wrap}
+.pkg-btn{padding:.3rem .7rem;border-radius:6px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;transition:all .2s}
+.pbp{background:var(--pkg);color:#fff}.pbp:hover{background:#4a6ab0}
+.pbo{background:transparent;color:var(--pkg);border:1px solid var(--pkg)}.pbo:hover{background:var(--pkglight)}
+.pbd{background:#e05c5c;color:#fff}
+.pkg-empty{text-align:center;color:var(--muted);font-size:.84rem;padding:1.5rem}
+/* GERENCIAL */
 .ghdr{background:#fff;border-radius:var(--rad);border:.5px solid #e0d8d4;padding:1rem 1.2rem;margin-bottom:.8rem}
 .gtitle{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--blk);margin-bottom:.8rem}
 .gfilt{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
 .gfilt select{border:1px solid #ddd;border-radius:7px;padding:.4rem .7rem;font-family:'DM Sans',sans-serif;font-size:.84rem;color:var(--txt);background:#fff}
-.gfilt select:focus{outline:none;border-color:var(--gold)}
 .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:.8rem}
 .kpi{background:#fff;border-radius:var(--rad);padding:.9rem 1rem;border:.5px solid #e0d8d4;text-align:center}
 .kpi .kv{font-size:1.5rem;font-weight:500}
 .kpi .kk{font-size:.72rem;color:var(--muted);margin-top:.15rem}
-.kr .kv{color:var(--rose)}.kg .kv{color:var(--gold)}.kgr .kv{color:#5a9e6f}.kb .kv{color:#5a7ec9}
+.kr .kv{color:var(--rose)}.kg .kv{color:var(--gold)}.kgr .kv{color:#5a9e6f}.kb .kv{color:var(--pkg)}
 .chbox{background:#fff;border-radius:var(--rad);border:.5px solid #e0d8d4;padding:1rem;margin-bottom:.8rem}
 .chtitle{font-size:.82rem;font-weight:500;color:var(--muted);margin-bottom:.8rem}
 .barchart{display:flex;flex-direction:column;gap:.5rem}
@@ -98,7 +122,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);mi
 .tbl tr:hover td{background:var(--rlight)}
 .tdv{font-weight:500;color:var(--rose)}
 .sbadge{padding:.12rem .45rem;border-radius:4px;font-size:.68rem;font-weight:500}
-.sc{background:#f5e0e8;color:var(--rdark)}.sp{background:#fdf0d8;color:#7a5a1a}.sn{background:#eee;color:#666}
+.sc{background:#f5e0e8;color:var(--rdark)}.sp{background:#fdf0d8;color:#7a5a1a}.sn{background:#eee;color:#666}.spkg{background:var(--pkglight);color:var(--pkg)}
+/* MODAL */
 .mbg{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:100;display:flex;align-items:center;justify-content:center}
 .modal{background:#fff;border-radius:16px;padding:1.4rem;width:340px;max-width:95vw;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
 .modal h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.9rem;color:var(--blk)}
@@ -108,10 +133,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);mi
 .fg label{display:block;font-size:.76rem;color:var(--muted);margin-bottom:.25rem;font-weight:500}
 .fg input,.fg select{width:100%;border:1px solid #ddd;border-radius:7px;padding:.45rem .65rem;font-family:'DM Sans',sans-serif;font-size:.86rem;color:var(--txt);background:#fff}
 .fg input:focus,.fg select:focus{outline:none;border-color:var(--rose)}
+.fg.pkf input:focus,.fg.pkf select:focus{border-color:var(--pkg)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
 .btn{padding:.48rem 1rem;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:500;transition:all .2s}
 .bp{background:var(--rose);color:#fff}.bp:hover{background:var(--rdark)}
 .bo{background:transparent;color:var(--rose);border:1.5px solid var(--rose)}.bo:hover{background:var(--rlight)}
 .bd{background:#e05c5c;color:#fff}.bd:hover{background:#c04040}
+.bpkg{background:var(--pkg);color:#fff}.bpkg:hover{background:#4a6ab0}
 .brow{display:flex;gap:.4rem;margin-top:.9rem;flex-wrap:wrap}
 .hidden{display:none}
 .dlist{max-height:250px;overflow-y:auto}
@@ -120,6 +148,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);mi
 .ddot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .dname{font-size:.82rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dsub{font-size:.7rem;color:var(--muted)}
+.divider{border:none;border-top:.5px solid var(--gray2);margin:.5rem 0}
+.pkg-suggest{font-size:.75rem;color:var(--pkg);background:var(--pkglight);padding:.3rem .6rem;border-radius:6px;margin-bottom:.5rem}
 @media(max-width:600px){
   .wgrid{grid-template-columns:38px repeat(6,1fr)}
   .tc{font-size:.55rem;padding-right:.1rem}
@@ -146,6 +176,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);mi
 
   <div class="mtabs">
     <button class="mtab active" onclick="sw('agenda')">🗓️ Agenda</button>
+    <button class="mtab pt" onclick="sw('pkg')">📦 Pacotes</button>
     <button class="mtab gt" onclick="sw('ger')">📊 Gerencial</button>
   </div>
 
@@ -156,32 +187,37 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);mi
         <button class="vtab active" data-v="week" onclick="sv('week')">Semana</button>
         <button class="vtab" data-v="month" onclick="sv('month')">Mês</button>
       </div>
+      <button class="btn bpkg" style="font-size:.78rem;padding:.35rem .8rem" onclick="openNewPkg()">📦 Novo pacote</button>
     </div>
     <div id="vw-week" class="view active">
-      <div class="nav">
-        <button onclick="pw()">← Anterior</button>
-        <span class="nlbl" id="wlbl"></span>
-        <button onclick="nw()">Próxima →</button>
-      </div>
+      <div class="nav"><button onclick="pw()">← Anterior</button><span class="nlbl" id="wlbl"></span><button onclick="nw()">Próxima →</button></div>
       <div class="leg">
         <span><span class="ldot lc"></span>Confirmada</span>
         <span><span class="ldot lp"></span>Pendente</span>
+        <span><span class="ldot lpkg"></span>Pacote</span>
         <span><span class="ldot ln"></span>Desmarcada</span>
       </div>
       <div class="wgrid" id="wgrid"></div>
     </div>
     <div id="vw-month" class="view">
-      <div class="nav">
-        <button onclick="pm()">← Anterior</button>
-        <span class="nlbl" id="mlbl"></span>
-        <button onclick="nm()">Próximo →</button>
-      </div>
+      <div class="nav"><button onclick="pm()">← Anterior</button><span class="nlbl" id="mlbl"></span><button onclick="nm()">Próximo →</button></div>
       <div class="leg">
         <span><span class="ldot lc"></span>Confirmada</span>
         <span><span class="ldot lp"></span>Pendente</span>
+        <span><span class="ldot lpkg"></span>Pacote</span>
         <span><span class="ldot ln"></span>Desmarcada</span>
       </div>
       <div class="mgrid" id="mgrid"></div>
+    </div>
+  </div>
+
+  <div id="panel-pkg" class="panel">
+    <div class="pkg-wrap">
+      <div class="pkg-hdr">
+        <h3>📦 Pacotes de Maria</h3>
+        <button class="btn bpkg" style="font-size:.78rem;padding:.35rem .8rem" onclick="openNewPkg()">+ Novo</button>
+      </div>
+      <div class="pkg-cards" id="pkg-cards"></div>
     </div>
   </div>
 
@@ -201,7 +237,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--txt);mi
   <div class="modal" id="modal"></div>
 </div>
 
-<!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
@@ -219,14 +254,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const apptRef = ref(db, "agendamentos");
+const pkgRef  = ref(db, "pacotes");
 
 const SVCS = ["Design de Sobrancelha","Design c/ Henna","Micropigmentação","Laminação de Sobrancelha","Brow Lamination","Depilação Linha","Aplicação de Cílios","Manutenção de Cílios","Remoção de Cílios"];
-const HRS = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00"];
-const DPT = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
-const MPT = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+const HRS  = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00"];
+const DPT  = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+const MPT  = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 const MSPT = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 
-let appts = {};
+let appts = {}, pkgs = {};
 let wOff = 0, mOff = 0, curView = "week", curTab = "agenda";
 
 function dk(d){return d.toISOString().slice(0,10);}
@@ -234,36 +270,38 @@ function ak(d,h){return d+"__"+h;}
 function tdk(){return dk(new Date());}
 function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 function brl(v){if(!v&&v!==0)return"—";return"R$ "+Number(v).toFixed(2).replace(".",",");}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
 
-// sync status
 function setSync(st,txt){
   const bar=document.getElementById("syncbar");
   bar.className="sync-bar "+st;
   document.getElementById("synctxt").textContent=txt;
 }
 
-// escuta Firebase em tempo real
-onValue(apptRef, snap => {
-  appts = snap.val() || {};
+// escuta agendamentos
+onValue(apptRef, snap=>{
+  appts=snap.val()||{};
   setSync("online","Sincronizado ✓");
   refresh();
-}, err => {
-  setSync("offline","Sem conexão");
+}, ()=>setSync("offline","Sem conexão"));
+
+// escuta pacotes
+onValue(pkgRef, snap=>{
+  pkgs=snap.val()||{};
+  if(curTab==="pkg") renderPkg();
 });
 
-function saveAppt(key, data){
-  set(ref(db,"agendamentos/"+key), data);
-}
-function delAppt(key){
-  remove(ref(db,"agendamentos/"+key));
-}
+function saveAppt(key,data){ set(ref(db,"agendamentos/"+key),data); }
+function delAppt(key){ remove(ref(db,"agendamentos/"+key)); }
+function savePkgFb(id,data){ set(ref(db,"pacotes/"+id),data); }
+function delPkgFb(id){ remove(ref(db,"pacotes/"+id)); }
 
 function refresh(){
-  if(curView==="week") rw(); else rm();
-  if(curTab==="ger") renderGer();
+  if(curView==="week")rw(); else rm();
+  if(curTab==="ger")renderGer();
+  if(curTab==="pkg")renderPkg();
 }
 
-// navegação semana
 function ws(off){const d=new Date();const day=d.getDay();const m=new Date(d);m.setDate(d.getDate()-day+1+off*7);m.setHours(0,0,0,0);return m;}
 function wd(off){const m=ws(off);const days=[];for(let i=0;i<6;i++){const d=new Date(m);d.setDate(m.getDate()+i);days.push(d);}return days;}
 
@@ -274,10 +312,11 @@ window.nm=()=>{mOff++;rm();}
 
 window.sw=t=>{
   curTab=t;
-  document.querySelectorAll(".mtab").forEach((el,i)=>el.classList.toggle("active",(i===0&&t==="agenda")||(i===1&&t==="ger")));
+  document.querySelectorAll(".mtab").forEach((el,i)=>el.classList.toggle("active",(i===0&&t==="agenda")||(i===1&&t==="pkg")||(i===2&&t==="ger")));
   document.querySelectorAll(".panel").forEach(el=>el.classList.remove("active"));
   document.getElementById("panel-"+t).classList.add("active");
   if(t==="ger")renderGer();
+  if(t==="pkg")renderPkg();
 }
 
 window.sv=v=>{
@@ -312,8 +351,11 @@ function rw(){
     h+=`<div class="tc">${hr}</div>`;
     days.forEach(d=>{
       const key=ak(dk(d),hr);const a=appts[key];
-      if(a){const cls=a.s==="p"?"pend":a.s==="n"?"canc":"";h+=`<div class="slot" onclick="oa('${dk(d)}','${hr}')"><div class="appt ${cls}"><div class="an">${esc(a.cl)}</div><div class="as">${esc(a.sv||"")}</div></div></div>`;}
-      else{h+=`<div class="slot" onclick="on('${dk(d)}','${hr}')"></div>`;}
+      if(a){
+        const isPkg=!!a.pkgId;
+        const cls=a.s==="p"?"pend":a.s==="n"?"canc":isPkg?"pkg":"";
+        h+=`<div class="slot" onclick="oa('${dk(d)}','${hr}')"><div class="appt ${cls}"><div class="an">${esc(a.cl)}</div><div class="as">${esc(a.sv||"")}${isPkg?" 📦":""}</div></div></div>`;
+      }else{h+=`<div class="slot" onclick="on('${dk(d)}','${hr}')"></div>`;}
     });
   });
   g.innerHTML=h;
@@ -334,7 +376,11 @@ function rm(){
     const d=new Date(year,month,day);const dks=dk(d);const isT=dks===today;
     const da=HRS.map(hr=>({hr,a:appts[ak(dks,hr)]})).filter(x=>x.a);
     let inner="";
-    da.slice(0,2).forEach(({hr,a})=>{const cls=a.s==="p"?"pend":a.s==="n"?"canc":"";inner+=`<div class="dappt ${cls}" onclick="event.stopPropagation();oa('${dks}','${hr}')">${esc(a.cl)}</div>`;});
+    da.slice(0,2).forEach(({hr,a})=>{
+      const isPkg=!!a.pkgId;
+      const cls=a.s==="p"?"pend":a.s==="n"?"canc":isPkg?"pkg":"";
+      inner+=`<div class="dappt ${cls}" onclick="event.stopPropagation();oa('${dks}','${hr}')">${esc(a.cl)}${isPkg?" 📦":""}</div>`;
+    });
     if(da.length>2)inner+=`<div class="dmore">+${da.length-2} mais</div>`;
     h+=`<div class="mday${isT?" today":""}" onclick="ond('${dks}')"><div class="dnum">${day}</div>${inner}</div>`;
   }
@@ -342,65 +388,154 @@ function rm(){
   g.innerHTML=h;
 }
 
-function renderGer(){
-  const month=parseInt(document.getElementById("gm").value);
-  const year=parseInt(document.getElementById("gy").value);
-  const data=[];
-  Object.entries(appts).forEach(([key,a])=>{
-    const parts=key.split("__");const dks=parts[0];const hr=parts[1];
-    const d=new Date(dks);
-    if(d.getMonth()!==month||d.getFullYear()!==year)return;
-    data.push({dks,hr,a});
-  });
-  data.sort((a,b)=>a.dks.localeCompare(b.dks)||a.hr.localeCompare(b.hr));
-  const conf=data.filter(x=>x.a.s==="c");
-  const tot=conf.length;
-  const fat=conf.reduce((s,x)=>s+(x.a.val||0),0);
-  const pend=data.filter(x=>x.a.s==="p").length;
-  const comVal=conf.filter(x=>x.a.val>0);
-  const ticket=comVal.length>0?(comVal.reduce((s,x)=>s+x.a.val,0)/comVal.length):0;
-  const sc={},sv={};
-  conf.forEach(({a})=>{if(!a.sv)return;sc[a.sv]=(sc[a.sv]||0)+1;sv[a.sv]=(sv[a.sv]||0)+(a.val||0);});
-  const sl=Object.entries(sc).sort((a,b)=>b[1]-a[1]);const mx=sl[0]?sl[0][1]:1;
-  let bars="";
-  sl.forEach(([svc,cnt])=>{const pct=cnt/mx*100;bars+=`<div class="bitem"><span class="blbl">${esc(svc)}</span><div class="btrack"><div class="bfill gld" style="width:${pct}%"></div></div><span class="bval">${cnt}x · ${sv[svc]?brl(sv[svc]):""}</span></div>`;});
-  if(!bars)bars=`<div style="color:var(--muted);font-size:.82rem;text-align:center;padding:.5rem">Nenhum atendimento confirmado</div>`;
-  let rows="";
-  if(!data.length){rows=`<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem">Nenhum agendamento neste período</td></tr>`;}
-  else{
-    data.forEach(({dks,hr,a})=>{
-      const[y,m,d]=dks.split("-");
-      const sb=a.s==="c"?"<span class='sbadge sc'>Confirmada</span>":a.s==="p"?"<span class='sbadge sp'>Pendente</span>":"<span class='sbadge sn'>Desmarcada</span>";
-      rows+=`<tr><td>${d}/${m}/${y}</td><td>${hr}</td><td>${esc(a.cl)}</td><td>${esc(a.sv||"—")}</td><td class="tdv">${a.val?brl(a.val):"—"}</td><td>${sb}</td></tr>`;
-    });
-    rows+=`<tr style="background:var(--gray);font-weight:500"><td colspan="4" style="text-align:right;font-size:.8rem;color:var(--muted)">Total confirmado</td><td class="tdv">${fat>0?brl(fat):"—"}</td><td></td></tr>`;
-  }
-  document.getElementById("ger-body").innerHTML=`
-    <div class="kpis">
-      <div class="kpi kr"><div class="kv">${tot}</div><div class="kk">Atendimentos</div></div>
-      <div class="kpi kg"><div class="kv">${fat>0?brl(fat):"—"}</div><div class="kk">Faturamento</div></div>
-      <div class="kpi kgr"><div class="kv">${ticket>0?brl(ticket):"—"}</div><div class="kk">Ticket médio</div></div>
-      <div class="kpi kb"><div class="kv">${pend}</div><div class="kk">Pendentes</div></div>
-    </div>
-    <div class="chbox"><div class="chtitle">Serviços mais realizados</div><div class="barchart">${bars}</div></div>
-    <div class="tbl-wrap"><table class="tbl">
-      <thead><tr><th>Data</th><th>Hora</th><th>Cliente</th><th>Serviço</th><th>Valor</th><th>Status</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table></div>`;
+/* ===== PACOTES ===== */
+function getPkgInfo(pkg){
+  const sessions=pkg.sessions?Object.values(pkg.sessions):[];
+  const done=sessions.filter(s=>s.done).length;
+  const pct=Math.round(done/(pkg.total||1)*100);
+  return{done,pct,remaining:(pkg.total||1)-done,isComplete:done>=(pkg.total||1),sessions};
 }
 
+function renderPkg(){
+  const list=Object.values(pkgs);
+  const el=document.getElementById("pkg-cards");
+  if(!list.length){el.innerHTML=`<div class="pkg-empty">Nenhum pacote ainda.<br><button class="btn bpkg" style="margin-top:.5rem;font-size:.8rem" onclick="openNewPkg()">+ Criar pacote</button></div>`;return;}
+  el.innerHTML=list.map(pkg=>{
+    const{done,pct,remaining,isComplete,sessions}=getPkgInfo(pkg);
+    const totalPago=sessions.filter(s=>s.done&&s.val).reduce((a,s)=>a+(+s.val),0);
+    const sessList=sessions.filter(s=>s.done).map(s=>`<div class="pkg-sess"><span>${s.date}${s.note?" · "+esc(s.note):""}</span><span>${s.val?brl(s.val):""}</span></div>`).join("");
+    return `<div class="pkg-card">
+      <div class="pc-name">${esc(pkg.client)} ${isComplete?"✅":""}</div>
+      <div class="pc-info">${esc(pkg.svc)} · ${pkg.total} sessões · Início: ${pkg.start||"—"}</div>
+      <div class="pkg-progress"><div class="pkg-bar${isComplete?" done":""}" style="width:${pct}%"></div></div>
+      <div class="pkg-stats"><span>${done}/${pkg.total} realizadas</span><span>${isComplete?"Concluído ✅":"Faltam "+remaining}</span></div>
+      ${totalPago?`<div class="pkg-total">Total pago: <strong style="color:var(--pkg)">${brl(totalPago)}</strong></div>`:""}
+      ${pkg.obs?`<div class="pkg-total" style="font-style:italic">${esc(pkg.obs)}</div>`:""}
+      ${sessList?`<div class="pkg-sess-list">${sessList}</div>`:""}
+      <div class="pkg-actions">
+        ${!isComplete?`<button class="pkg-btn pbp" onclick="regSessao('${pkg.id}')">✓ Sessão</button>`:""}
+        <button class="pkg-btn pbo" onclick="editPkg('${pkg.id}')">Editar</button>
+        <button class="pkg-btn pbd" onclick="delPkg('${pkg.id}')">Excluir</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+window.openNewPkg=()=>{
+  const opts=SVCS.map(s=>`<option>${esc(s)}</option>`).join("");
+  const today=tdk();
+  sm(`<h3>📦 Novo Pacote</h3>
+  <div class="fg pkf"><label>Cliente</label><input id="pk-cl" placeholder="Nome da cliente" autofocus></div>
+  <div class="fg pkf"><label>Serviço</label><select id="pk-sv">${opts}</select></div>
+  <div class="row2">
+    <div class="fg pkf"><label>Total de sessões</label><input id="pk-tot" type="number" min="1" value="10"></div>
+    <div class="fg pkf"><label>Valor total (R$)</label><input id="pk-val" type="number" step="0.01" placeholder="Opcional"></div>
+  </div>
+  <div class="fg pkf"><label>Data de início</label><input id="pk-st" type="date" value="${today}"></div>
+  <div class="fg pkf"><label>Observação</label><input id="pk-obs" placeholder="Ex: 10% desconto, pago adiantado..."></div>
+  <div class="brow">
+    <button class="btn bpkg" onclick="savePkg()">Criar Pacote</button>
+    <button class="btn bo" onclick="cm()">Cancelar</button>
+  </div>`);
+}
+
+window.savePkg=()=>{
+  const cl=(document.getElementById("pk-cl").value||"").trim();if(!cl){alert("Informe o nome da cliente");return;}
+  const id=uid();
+  const pkg={id,client:cl,svc:document.getElementById("pk-sv").value,total:parseInt(document.getElementById("pk-tot").value)||10,val:document.getElementById("pk-val").value||null,start:document.getElementById("pk-st").value,obs:document.getElementById("pk-obs").value||null,sessions:{}};
+  savePkgFb(id,pkg);cm();sw("pkg");
+}
+
+window.regSessao=pkgId=>{
+  const pkg=pkgs[pkgId];if(!pkg)return;
+  const{done,remaining}=getPkgInfo(pkg);
+  sm(`<h3>✓ Registrar Sessão</h3>
+  <div class="ai"><div class="lb">${esc(pkg.client)} · ${esc(pkg.svc)}</div><strong>Sessão ${done+1} de ${pkg.total}</strong> · Faltam ${remaining-1} após esta</div>
+  <div class="fg pkf"><label>Data da sessão</label><input id="rs-dt" type="date" value="${tdk()}"></div>
+  <div class="fg pkf"><label>Valor pago (R$)</label><input id="rs-val" type="number" step="0.01" placeholder="Opcional"></div>
+  <div class="fg pkf"><label>Observação</label><input id="rs-obs" placeholder="Ex: henna nova, retoque..."></div>
+  <div class="brow">
+    <button class="btn bpkg" onclick="confirmSessao('${pkgId}')">Confirmar</button>
+    <button class="btn bo" onclick="cm()">Cancelar</button>
+  </div>`);
+}
+
+window.confirmSessao=pkgId=>{
+  const pkg=pkgs[pkgId];if(!pkg)return;
+  const sid=uid();
+  const val=document.getElementById("rs-val").value;
+  const sess={date:document.getElementById("rs-dt").value||tdk(),done:true,val:val?parseFloat(val):null,note:document.getElementById("rs-obs").value||null};
+  set(ref(db,"pacotes/"+pkgId+"/sessions/"+sid),sess);
+  cm();
+}
+
+window.editPkg=pkgId=>{
+  const pkg=pkgs[pkgId];if(!pkg)return;
+  const opts=SVCS.map(s=>`<option${s===pkg.svc?" selected":""}>${esc(s)}</option>`).join("");
+  sm(`<h3>Editar Pacote</h3>
+  <div class="fg pkf"><label>Cliente</label><input id="ep-cl" value="${esc(pkg.client)}"></div>
+  <div class="fg pkf"><label>Serviço</label><select id="ep-sv">${opts}</select></div>
+  <div class="row2">
+    <div class="fg pkf"><label>Total de sessões</label><input id="ep-tot" type="number" min="1" value="${pkg.total}"></div>
+    <div class="fg pkf"><label>Valor total (R$)</label><input id="ep-val" type="number" step="0.01" value="${pkg.val||""}"></div>
+  </div>
+  <div class="fg pkf"><label>Observação</label><input id="ep-obs" value="${esc(pkg.obs||"")}"></div>
+  <div class="brow">
+    <button class="btn bpkg" onclick="saveEditPkg('${pkgId}')">Salvar</button>
+    <button class="btn bo" onclick="cm()">Cancelar</button>
+  </div>`);
+}
+
+window.saveEditPkg=pkgId=>{
+  const pkg=pkgs[pkgId];if(!pkg)return;
+  const updates={client:(document.getElementById("ep-cl").value||"").trim()||pkg.client,svc:document.getElementById("ep-sv").value,total:parseInt(document.getElementById("ep-tot").value)||pkg.total,val:document.getElementById("ep-val").value||null,obs:document.getElementById("ep-obs").value||null};
+  set(ref(db,"pacotes/"+pkgId+"/client"),updates.client);
+  set(ref(db,"pacotes/"+pkgId+"/svc"),updates.svc);
+  set(ref(db,"pacotes/"+pkgId+"/total"),updates.total);
+  set(ref(db,"pacotes/"+pkgId+"/val"),updates.val);
+  set(ref(db,"pacotes/"+pkgId+"/obs"),updates.obs);
+  cm();
+}
+
+window.delPkg=pkgId=>{
+  if(!confirm("Excluir este pacote?"))return;
+  delPkgFb(pkgId);cm();
+}
+
+function getActivePkgsForClient(name){
+  return Object.values(pkgs).filter(p=>{
+    const{isComplete}=getPkgInfo(p);
+    return !isComplete&&p.client.toLowerCase()===name.toLowerCase();
+  });
+}
+
+/* ===== AGENDA MODALS ===== */
 window.on=(dks,hr)=>{
   const[y,m,d]=dks.split("-");
   const opts=SVCS.map(s=>`<option>${esc(s)}</option>`).join("");
   sm(`<h3>Novo Agendamento</h3>
   <div class="ai"><div class="lb">Maria · Sobrancelhas & Cílios</div><strong>${d}/${m}/${y} às ${hr}</strong></div>
-  <div class="fg"><label>Nome da cliente</label><input id="fn" placeholder="Ex: Ana Lima" autofocus></div>
+  <div class="fg"><label>Nome da cliente</label><input id="fn" placeholder="Ex: Ana Lima" autofocus oninput="chkPkg(this.value)"></div>
+  <div id="pkg-sug"></div>
   <div class="fg"><label>Serviço</label><select id="fs">${opts}</select></div>
   <div class="fg"><label>Valor (R$)</label><input id="fv" type="number" step="0.01" placeholder="Opcional"></div>
   <div class="fg"><label>Telefone (opcional)</label><input id="ft" placeholder="(34) 9xxxx-xxxx"></div>
   <div class="fg"><label>Observação</label><input id="fo" placeholder="Ex: henna escura, alergia..."></div>
   <div class="fg"><label>Status</label><select id="fst"><option value="c">✅ Confirmada</option><option value="p">⏳ Pendente</option></select></div>
+  <div id="pkg-sel-wrap" class="hidden"><hr class="divider"><div class="fg"><label style="color:var(--pkg)">📦 Vincular a pacote</label><select id="fpkg"><option value="">Não vincular</option></select></div></div>
   <div class="brow"><button class="btn bp" onclick="sn('${dks}','${hr}')">Marcar</button><button class="btn bo" onclick="cm()">Cancelar</button></div>`);
+}
+
+window.chkPkg=name=>{
+  const list=getActivePkgsForClient(name);
+  const wrap=document.getElementById("pkg-sel-wrap");
+  const sug=document.getElementById("pkg-sug");
+  const sel=document.getElementById("fpkg");
+  if(list.length){
+    wrap.classList.remove("hidden");
+    sel.innerHTML=`<option value="">Não vincular</option>`+list.map(p=>{const{done}=getPkgInfo(p);return`<option value="${p.id}">${esc(p.svc)} – sessão ${done+1}/${p.total}</option>`;}).join("");
+    sug.innerHTML=`<div class="pkg-suggest">📦 ${list.length} pacote(s) ativo(s) para esta cliente</div>`;
+  }else{wrap.classList.add("hidden");sug.innerHTML="";}
 }
 
 window.ond=dks=>{
@@ -412,17 +547,19 @@ window.ond=dks=>{
     sm(`<h3>Novo Agendamento</h3>
     <div class="ai"><div class="lb">Maria · Sobrancelhas & Cílios</div><strong>${d}/${m}/${y}</strong></div>
     <div class="fg"><label>Horário</label><select id="fhr">${hOpts}</select></div>
-    <div class="fg"><label>Nome da cliente</label><input id="fn" placeholder="Ex: Ana Lima" autofocus></div>
+    <div class="fg"><label>Nome da cliente</label><input id="fn" placeholder="Ex: Ana Lima" autofocus oninput="chkPkg(this.value)"></div>
+    <div id="pkg-sug"></div>
     <div class="fg"><label>Serviço</label><select id="fs">${opts}</select></div>
     <div class="fg"><label>Valor (R$)</label><input id="fv" type="number" step="0.01" placeholder="Opcional"></div>
     <div class="fg"><label>Telefone</label><input id="ft" placeholder="(34) 9xxxx-xxxx"></div>
     <div class="fg"><label>Observação</label><input id="fo" placeholder="Ex: henna escura, alergia..."></div>
     <div class="fg"><label>Status</label><select id="fst"><option value="c">✅ Confirmada</option><option value="p">⏳ Pendente</option></select></div>
+    <div id="pkg-sel-wrap" class="hidden"><hr class="divider"><div class="fg"><label style="color:var(--pkg)">📦 Vincular a pacote</label><select id="fpkg"><option value="">Não vincular</option></select></div></div>
     <div class="brow"><button class="btn bp" onclick="snd('${dks}')">Marcar</button><button class="btn bo" onclick="cm()">Cancelar</button></div>`);
     return;
   }
   let list="";
-  da.forEach(({hr,a})=>{const cl=a.s==="p"?"#c9a05a":a.s==="n"?"#bbb":"#c96b8a";list+=`<div class="dli" onclick="cm();setTimeout(()=>oa('${dks}','${hr}'),50)"><span class="ddot" style="background:${cl}"></span><div><div class="dname">${esc(a.cl)}</div><div class="dsub">${hr} · ${esc(a.sv||"")}</div></div></div>`;});
+  da.forEach(({hr,a})=>{const isPkg=!!a.pkgId;const cl=a.s==="p"?"#c9a05a":a.s==="n"?"#bbb":isPkg?"#6b8ac9":"#c96b8a";list+=`<div class="dli" onclick="cm();setTimeout(()=>oa('${dks}','${hr}'),50)"><span class="ddot" style="background:${cl}"></span><div><div class="dname">${esc(a.cl)}${isPkg?" 📦":""}</div><div class="dsub">${hr} · ${esc(a.sv||"")}</div></div></div>`;});
   sm(`<h3>${d}/${m}/${y}</h3><div class="ai"><div class="lb">Maria · ${da.length} agendamento${da.length>1?"s":""}</div></div><div class="dlist">${list}</div>
   <div class="brow"><button class="btn bp" onclick="cm();setTimeout(()=>ond('${dks}'),50)">+ Novo</button><button class="btn bo" onclick="cm()">Fechar</button></div>`);
 }
@@ -430,30 +567,37 @@ window.ond=dks=>{
 window.sn=(dks,hr)=>{
   const name=(document.getElementById("fn").value||"").trim();if(!name){alert("Informe o nome da cliente");return;}
   const v=document.getElementById("fv").value;
+  const pkgId=document.getElementById("fpkg")?document.getElementById("fpkg").value:"";
   const key=ak(dks,hr);
-  saveAppt(key,{cl:name,sv:document.getElementById("fs").value,val:v?parseFloat(v):null,tel:document.getElementById("ft").value,obs:document.getElementById("fo").value,s:document.getElementById("fst").value});
-  cm();
+  const data={cl:name,sv:document.getElementById("fs").value,val:v?parseFloat(v):null,tel:document.getElementById("ft").value,obs:document.getElementById("fo").value,s:document.getElementById("fst").value};
+  if(pkgId){data.pkgId=pkgId;const sid=uid();set(ref(db,"pacotes/"+pkgId+"/sessions/"+sid),{date:dks,done:true,val:v?parseFloat(v):null,note:data.obs||null});}
+  saveAppt(key,data);cm();
 }
 
 window.snd=dks=>{
   const hr=document.getElementById("fhr").value;
   const name=(document.getElementById("fn").value||"").trim();if(!name){alert("Informe o nome da cliente");return;}
-  const key=ak(dks,hr);
-  if(appts[key]&&!confirm("Já existe agendamento neste horário. Substituir?"))return;
+  const key=ak(dks,hr);if(appts[key]&&!confirm("Já existe agendamento neste horário. Substituir?"))return;
   const v=document.getElementById("fv").value;
-  saveAppt(key,{cl:name,sv:document.getElementById("fs").value,val:v?parseFloat(v):null,tel:document.getElementById("ft").value,obs:document.getElementById("fo").value,s:document.getElementById("fst").value});
-  cm();
+  const pkgId=document.getElementById("fpkg")?document.getElementById("fpkg").value:"";
+  const data={cl:name,sv:document.getElementById("fs").value,val:v?parseFloat(v):null,tel:document.getElementById("ft").value,obs:document.getElementById("fo").value,s:document.getElementById("fst").value};
+  if(pkgId){data.pkgId=pkgId;const sid=uid();set(ref(db,"pacotes/"+pkgId+"/sessions/"+sid),{date:dks,done:true,val:v?parseFloat(v):null,note:data.obs||null});}
+  saveAppt(key,data);cm();
 }
 
 window.oa=(dks,hr)=>{
   const key=ak(dks,hr);const a=appts[key];if(!a)return;
   const[y,m,d]=dks.split("-");
   const sb=a.s==="c"?"<span class='sbadge sc'>Confirmada</span>":a.s==="p"?"<span class='sbadge sp'>Pendente</span>":"<span class='sbadge sn'>Desmarcada</span>";
+  const pkgBadge=a.pkgId?`<span class="sbadge spkg">📦 Pacote</span>`:"";
+  const pkgInfo=a.pkgId?pkgs[a.pkgId]:null;
   const opts=SVCS.map(s=>`<option${s===a.sv?" selected":""}>${esc(s)}</option>`).join("");
   const hOpts=HRS.map(h=>`<option value="${h}"${h===hr?" selected":""}>${h}</option>`).join("");
   const stOpts=["c","p","n"].map(v=>`<option value="${v}"${v===a.s?" selected":""}>${v==="c"?"✅ Confirmada":v==="p"?"⏳ Pendente":"❌ Desmarcada"}</option>`).join("");
   sm(`<h3>Agendamento</h3>
-  <div class="ai"><div class="lb">Maria · Sobrancelhas & Cílios</div><strong>${d}/${m}/${y} às ${hr}</strong> ${sb}</div>
+  <div class="ai"><div class="lb">Maria · Sobrancelhas & Cílios</div><strong>${d}/${m}/${y} às ${hr}</strong> ${sb} ${pkgBadge}
+  ${pkgInfo?`<br><span style="font-size:.75rem;color:var(--pkg)">📦 ${esc(pkgInfo.svc)} · ${getPkgInfo(pkgInfo).done}/${pkgInfo.total} sessões</span>`:""}
+  </div>
   <div class="fg"><label>Nome da cliente</label><input id="en" value="${esc(a.cl)}"></div>
   <div class="fg"><label>Serviço</label><select id="es">${opts}</select></div>
   <div class="fg"><label>Valor (R$)</label><input id="ev" type="number" step="0.01" value="${a.val||""}" placeholder="Opcional"></div>
@@ -474,6 +618,7 @@ window.ua=(dks,oldHr)=>{
   if(newKey!==key&&appts[newKey]&&!confirm("Já existe cliente neste horário. Substituir?"))return;
   const v=document.getElementById("ev").value;
   const up={cl:(document.getElementById("en").value||"").trim()||a.cl,sv:document.getElementById("es").value,val:v?parseFloat(v):null,tel:document.getElementById("et").value,obs:document.getElementById("eo").value,s:document.getElementById("est").value};
+  if(a.pkgId)up.pkgId=a.pkgId;
   if(newKey!==key)delAppt(key);
   saveAppt(newKey,up);cm();
 }
@@ -481,6 +626,56 @@ window.ua=(dks,oldHr)=>{
 window.dapt=(dks,hr)=>{
   if(!confirm("Remover este agendamento?"))return;
   delAppt(ak(dks,hr));cm();
+}
+
+/* ===== GERENCIAL ===== */
+function renderGer(){
+  const month=parseInt(document.getElementById("gm").value);
+  const year=parseInt(document.getElementById("gy").value);
+  const data=[];
+  Object.entries(appts).forEach(([key,a])=>{
+    const parts=key.split("__");const dks=parts[0];const hr=parts[1];
+    const d=new Date(dks);
+    if(d.getMonth()!==month||d.getFullYear()!==year)return;
+    data.push({dks,hr,a});
+  });
+  data.sort((a,b)=>a.dks.localeCompare(b.dks)||a.hr.localeCompare(b.hr));
+  const conf=data.filter(x=>x.a.s==="c");
+  const tot=conf.length;
+  const fat=conf.reduce((s,x)=>s+(x.a.val||0),0);
+  const pend=data.filter(x=>x.a.s==="p").length;
+  const pkgCount=conf.filter(x=>x.a.pkgId).length;
+  const comVal=conf.filter(x=>x.a.val>0);
+  const ticket=comVal.length>0?(comVal.reduce((s,x)=>s+x.a.val,0)/comVal.length):0;
+  const sc={},sv={};
+  conf.forEach(({a})=>{if(!a.sv)return;sc[a.sv]=(sc[a.sv]||0)+1;sv[a.sv]=(sv[a.sv]||0)+(a.val||0);});
+  const sl=Object.entries(sc).sort((a,b)=>b[1]-a[1]);const mx=sl[0]?sl[0][1]:1;
+  let bars="";
+  sl.forEach(([svc,cnt])=>{const pct=cnt/mx*100;bars+=`<div class="bitem"><span class="blbl">${esc(svc)}</span><div class="btrack"><div class="bfill gld" style="width:${pct}%"></div></div><span class="bval">${cnt}x · ${sv[svc]?brl(sv[svc]):""}</span></div>`;});
+  if(!bars)bars=`<div style="color:var(--muted);font-size:.82rem;text-align:center;padding:.5rem">Nenhum atendimento confirmado</div>`;
+  let rows="";
+  if(!data.length){rows=`<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem">Nenhum agendamento neste período</td></tr>`;}
+  else{
+    data.forEach(({dks,hr,a})=>{
+      const[y,m,d]=dks.split("-");
+      const sb=a.s==="c"?"<span class='sbadge sc'>Confirmada</span>":a.s==="p"?"<span class='sbadge sp'>Pendente</span>":"<span class='sbadge sn'>Desmarcada</span>";
+      const pkgB=a.pkgId?"<span class='sbadge spkg'>📦</span>":"";
+      rows+=`<tr><td>${d}/${m}/${y}</td><td>${hr}</td><td>${esc(a.cl)} ${pkgB}</td><td>${esc(a.sv||"—")}</td><td class="tdv">${a.val?brl(a.val):"—"}</td><td>${sb}</td></tr>`;
+    });
+    rows+=`<tr style="background:var(--gray);font-weight:500"><td colspan="4" style="text-align:right;font-size:.8rem;color:var(--muted)">Total confirmado</td><td class="tdv">${fat>0?brl(fat):"—"}</td><td></td></tr>`;
+  }
+  document.getElementById("ger-body").innerHTML=`
+    <div class="kpis">
+      <div class="kpi kr"><div class="kv">${tot}</div><div class="kk">Atendimentos</div></div>
+      <div class="kpi kg"><div class="kv">${fat>0?brl(fat):"—"}</div><div class="kk">Faturamento</div></div>
+      <div class="kpi kgr"><div class="kv">${ticket>0?brl(ticket):"—"}</div><div class="kk">Ticket médio</div></div>
+      <div class="kpi kb"><div class="kv">${pkgCount}</div><div class="kk">Sessões Pacote</div></div>
+    </div>
+    <div class="chbox"><div class="chtitle">Serviços mais realizados</div><div class="barchart">${bars}</div></div>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>Data</th><th>Hora</th><th>Cliente</th><th>Serviço</th><th>Valor</th><th>Status</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
 }
 
 function sm(html){document.getElementById("modal").innerHTML=html;document.getElementById("mbg").classList.remove("hidden");}
@@ -494,7 +689,6 @@ const gy=document.getElementById("gy");
 MPT.forEach((m,i)=>{const o=document.createElement("option");o.value=i;o.textContent=m;if(i===now.getMonth())o.selected=true;gm.appendChild(o);});
 [now.getFullYear()-1,now.getFullYear(),now.getFullYear()+1].forEach(y=>{const o=document.createElement("option");o.value=y;o.textContent=y;if(y===now.getFullYear())o.selected=true;gy.appendChild(o);});
 
-// render inicial
 rw();
 </script>
 </body>
